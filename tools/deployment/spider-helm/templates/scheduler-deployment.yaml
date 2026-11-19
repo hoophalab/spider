@@ -17,6 +17,7 @@ spec:
         {{- include "spider.labels" . | nindent 8 }}
         app.kubernetes.io/component: "scheduler"
     spec:
+      {{- include "spider.podScheduling" (.Values.scheduling.scheduler | default dict) | nindent 6 }}
       containers:
         - name: "scheduler"
           image: {{ include "spider.imageRef" (dict "root" . "component" "scheduler") | quote }}

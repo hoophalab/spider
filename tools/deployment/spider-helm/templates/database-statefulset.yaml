@@ -19,6 +19,7 @@ spec:
         {{- include "spider.labels" . | nindent 8 }}
         app.kubernetes.io/component: "database"
     spec:
+      {{- include "spider.podScheduling" (.Values.scheduling.database | default dict) | nindent 6 }}
       containers:
         - name: "database"
           image: {{ include "spider.imageRef" (dict "root" . "component" "database") | quote }}

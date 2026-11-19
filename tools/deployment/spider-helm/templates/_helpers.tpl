@@ -143,3 +143,18 @@ Gets the bundled database port or external `spiderConfig.database.port`.
 {{- .Values.spiderConfig.database.port -}}
 {{- end -}}
 {{- end }}
+
+{{/*
+Creates a pod's scheduling settings: `affinity`, `nodeSelector`, `tolerations`, and
+`topologySpreadConstraints`, each rendered only when set.
+
+@param {object} . A `scheduling.<component>` value (or a worker pool's `scheduling`)
+@return {string} YAML-formatted pod spec fields
+*/}}
+{{- define "spider.podScheduling" -}}
+{{- range $field := list "affinity" "nodeSelector" "tolerations" "topologySpreadConstraints" }}
+{{- with index $ $field }}
+{{ $field }}: {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}{{/* define "spider.podScheduling" */}}

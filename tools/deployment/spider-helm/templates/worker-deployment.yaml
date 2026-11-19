@@ -19,6 +19,7 @@ spec:
         {{- include "spider.labels" $ | nindent 8 }}
         app.kubernetes.io/component: {{ printf "worker-%s" .name | quote }}
     spec:
+      {{- include "spider.podScheduling" (.scheduling | default $.Values.scheduling.worker | default dict) | nindent 6 }}
       {{- with $.Values.spiderConfig.worker.service_account_name }}
       serviceAccountName: {{ tpl . $ | quote }}
       {{- end }}

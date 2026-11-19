@@ -25,6 +25,15 @@ resources:
   storage: {}
   worker: {}
 
+# Pod scheduling for each component: any of `affinity`, `nodeSelector`, `tolerations`, and
+# `topologySpreadConstraints`, rendered as-is into the pod spec. A worker pool's `scheduling`
+# overrides `scheduling.worker`.
+scheduling:
+  database: {}
+  scheduler: {}
+  storage: {}
+  worker: {}
+
 spiderConfig:
   # List of third-party services bundled (deployed) as part of the chart.
   # Remove a service from this list to use an external instance instead, and configure its host/port
@@ -106,4 +115,7 @@ spiderConfig:
         # resources:
         #   requests: {cpu: "1", memory: "2Gi"}
         #   limits: {memory: "2Gi"}
+        # Pod scheduling for this pool's execution manager; overrides `scheduling.worker`.
+        # scheduling:
+        #   nodeSelector: {kubernetes.io/arch: "arm64"}
     service_account_name: ""

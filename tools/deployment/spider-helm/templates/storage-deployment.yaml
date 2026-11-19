@@ -19,6 +19,7 @@ spec:
         {{- include "spider.labels" . | nindent 8 }}
         app.kubernetes.io/component: "storage"
     spec:
+      {{- include "spider.podScheduling" (.Values.scheduling.storage | default dict) | nindent 6 }}
       containers:
         - name: "storage"
           image: {{ include "spider.imageRef" (dict "root" . "component" "storage") | quote }}
